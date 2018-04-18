@@ -1,6 +1,6 @@
-include <rounded-rect.scad>;
+use <rounded-rect.scad>;
 
-// piZero(includeHeatsink = false, includeCables = false);
+piZero(includeHeatsink = false, includeCables = false);
 
 module piZero(includeCables = true, includeHeatsink = true, heightPadding = 0, sdWidth = 12, cameraWidth = 17, printerTolerance = 0) {
     // base board

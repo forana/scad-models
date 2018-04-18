@@ -1,5 +1,5 @@
-include <pi-zero.scad>;
-include <rounded-rect.scad>;
+use <pi-zero.scad>;
+use <rounded-rect.scad>;
 
 $fn = 64;
 

@@ -1,6 +1,6 @@
 $fn = 16;
 
-// linear_extrude(0, 0, 1) roundedRect(10, 20, 2);
+linear_extrude(0, 0, 1) roundedRect(10, 20, 2);
 
 module roundedRect(w, h, r) {
     square([w - 2 * r, h], center = true);
