@@ -1,7 +1,7 @@
 include <pi-zero.scad>;
 include <rounded-rect.scad>;
 
-$fn = 32;
+$fn = 64;
 
 numSlots = 4;
 slotWidth = 8;
