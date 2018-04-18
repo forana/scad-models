@@ -1,48 +1,27 @@
-include <rounded-rect.scad>;
-include <pi-zero.scad>;
+use <pi-block.scad>;
+use <rounded-rect.scad>;
 
-printerTolerance = 0.3;
+printerTolerance = 0.4;
 $fn = 64;
 
-// pi zero, horizontally
-//difference() {
-//    union() {
-//        linear_extrude(0, 0, 3)
-//            roundedRect(32, 67, 3.5);
-//        translate([0, 0, 6]) hull(120);
-//    };
-//    translate([0, 0, 1])
-//        piZero(heightPadding = 20);
-//    // cut off anything below
-//    translate([0, 0, -8])
-//        rotate([180, 0, 0])
-//            linear_extrude(0, 0, 50)
-//                square(200, center = true);
-////    translate([-10, -27.5, 0])
-////        linear_extrude(0, 0, 3)
-////            stripeBlock(20, 55, 2);
-//};
-
 difference() {
-    translate([0, 4, -2]) hull(90);
-    translate([-1.55, 0, 0]) rotate([0, 90, 0])
-        piZero(heightPadding = 0.5, sdWidth = 20, cameraWidth=25);
-}
-
-module stripeBlock(w, h, stripeSpacing = 2) {
-    intersection() {
-        for (i = [2:2:(w + h)]) {
-            polygon([
-                [(i - 1) * stripeSpacing, 0],
-                [i * stripeSpacing, 0],
-                [0, i * stripeSpacing],
-                [0, (i - 1) * stripeSpacing]
-            ]);
-        };
-        square([w, h]);
+    union() {
+        linear_extrude(0, 0, 3)
+            roundedRect(32, 67, 3.5);
+        translate([0, 0, 6]) hull(120);
     };
-}
+    translate([0, -2, 0])
+        linear_extrude([0, 0, 1])
+            roundedRect(4 * 8, 75, 5);
+    // cut off anything below
+    translate([0, 0, -8])
+        rotate([180, 0, 0])
+            linear_extrude(0, 0, 50)
+                square(200, center = true);
+};
 
+translate([0, -2, 0])
+    piBlock(/*cutoutDepth = 0, cutoutRadius = 0, */cutoutLength = 56, outerRadius = 5, height = 16.5);
 
 module hull(hl)
 {
