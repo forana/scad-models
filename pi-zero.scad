@@ -22,7 +22,7 @@ module piZero(includeCables = true, includeHeatsink = true, heightPadding = 0, s
                 // camera port cover
                 linear_extrude(0, 0, 1 + heightPadding + printerTolerance)
                     translate([0, -32.5 - printerTolerance, 0])
-                        square([cameraWidth + 2 * printerTolerance, 1.5 + 2 * printerTolerance], center = true);
+                        square([cameraWidth + 2 * printerTolerance, 2 + 2 * printerTolerance], center = true);
                 // micro usb ports
                 translate([-10, -8.9, 1])
                     rotate([0, -90, 0])
