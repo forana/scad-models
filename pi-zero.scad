@@ -1,6 +1,6 @@
 include <rounded-rect.scad>;
 
-// piZero();
+// piZero(includeHeatsink = false, includeCables = false);
 
 module piZero(includeCables = true, includeHeatsink = true, heightPadding = 0, sdWidth = 12, cameraWidth = 17, printerTolerance = 0) {
     // base board
@@ -59,10 +59,12 @@ module piZero(includeCables = true, includeHeatsink = true, heightPadding = 0, s
                 // microsd card
                 translate([1.9, 28, 0])
                     linear_extrude(0, 0, 1.5 + heightPadding)
-                        square([sdWidth + 2 * printerTolerance, 17 + 2 * printerTolerance], center = true);
+                        square([sdWidth + 2 * printerTolerance, 16 + 2 * printerTolerance], center = true);
                 // cpu heatsink
-                translate([-3, 32.5 - 18.5 - 7, 0])
-                    linear_extrude(0, 0, 7)
-                        square([14, 14], center = true);
+                if (includeHeatsink) {
+                    translate([-3, 32.5 - 18.5 - 7, 0])
+                        linear_extrude(0, 0, 7)
+                            square([14, 14], center = true);
+                }
             };
 }
