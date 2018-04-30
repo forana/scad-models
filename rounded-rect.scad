@@ -1,4 +1,4 @@
-$fn = 16;
+$fn = 64;
 
 linear_extrude(0, 0, 1) roundedRect(10, 20, 2);
 

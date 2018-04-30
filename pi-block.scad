@@ -9,7 +9,7 @@ module piBlock(
         numSlots = 4,
         slotWidth = 8,
         slotLength = 75,
-        cutoutDepth = 15,
+        cutoutDepth = 55,
         cutoutLength = 55,
         height = 22,
         outerRadius = 3,
