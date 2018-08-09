@@ -1,14 +1,15 @@
-glarch(60, 40, 60);
+difference() {
+    glarch(70, 70, 6);
+    translate([0, 0, 2]) glarch(70, 65, 6);
+}
 
-module glarch(h, r) {
-    $fn = 4;
+module glarch(h, r, sides) {
+    $fn = sides;
     hull() {
-        // 9/9
-        translate([0, 0, h*3/3]) rotate([0, 0, 45]) cylinder(h = 1, r = r, $fn = 8);
-        // 8/9
-        translate([0, 0, h*2/3]) cylinder(h = 1, r = r, $fn = 8);
-        // 7/9
-        // 6/9
-        translate([0, 0, h*0/3]) rotate([0, 0, 45]) cylinder(h = 1, r = r);
+        for (i = [0:3]) {
+            translate([0, 0, h*i/3])
+                rotate([0, 0, 180 / sides  * i])
+                    cylinder(h = 1, r = r * (i + 6) / 9);
+        }
     }
 }
