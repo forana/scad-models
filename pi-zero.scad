@@ -2,12 +2,12 @@ use <rounded-rect.scad>;
 
 piZero(includeHeatsink = false, includeCables = false);
 
-module piZero(includeCables = true, includeHeatsink = true, heightPadding = 0, sdWidth = 12, cameraWidth = 17, printerTolerance = 0) {
+module piZero(includeCables = true, includeHeatsink = true, heightPadding = 0, sdWidth = 12, cameraWidth = 17, r = 3.5, printerTolerance = 0) {
     // base board
     color("green")
         linear_extrude(0, 0, 1.55 + 2 + heightPadding + printerTolerance)
             difference() {
-                roundedRect(30 + 2 * printerTolerance, 65 + 2 * printerTolerance, 3.5 -printerTolerance);
+                roundedRect(30 + 2 * printerTolerance, 65 + 2 * printerTolerance, r - printerTolerance);
                 *union() {
                     translate([11.5 + printerTolerance, 29 + printerTolerance, 0]) circle(r = 1.25 - printerTolerance);
                     translate([-11.5 - printerTolerance, 29 + printerTolerance, 0]) circle(r = 1.25 - printerTolerance);
