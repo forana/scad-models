@@ -1,7 +1,7 @@
 use <rounded-rect.scad>;
 
 $fn = 16;
-pt = 0.2;
+pt = 0.3;
 
 piLength = 65;
 piWidth = 30;
@@ -15,7 +15,7 @@ headerStickout = 2;
 headerWidth = 7.5;
 headerLength = 51;
 headerLengthOffset = 6.5;
-sdOffset = 7.5;
+sdOffset = 6.5;
 sdWidth = 15;
 sdStickout = 4;
 cableCenterOffset = 41.3;
@@ -31,11 +31,11 @@ buttonHeight = 4;
 buttonPlateInset = 2;
 buttonPlateOffsetX = 4;
 buttonPlateOffsetY = 0.6;
-buttonPlateThickness = 1;
+buttonPlateThickness = 0.6;
 buttonPlateLength = 50;
 buttonPlateWidth = 6;
 
-caseThickness = 3;
+caseThickness = 2.5;
 
 halfHeight = (piThickness + connectorHeight + boardThickness)/2;
 
@@ -43,7 +43,7 @@ union() {
     translate([-boardWidth/2 - 2*caseThickness, 0, caseThickness])
         case(true);
     rotate([0, 180, 0])
-        translate([-boardWidth/2 - 2*caseThickness, 0, -2*halfHeight - caseThickness])
+        translate([-boardWidth/2 - 2*caseThickness, 0, -2*halfHeight - caseThickness - buttonHeight])
             case(false);
     translate([0, -boardLength/2 - caseThickness - buttonPlateWidth, 0])
         buttonPlate();
@@ -55,6 +55,7 @@ module case(isBottom) {
             caseBottom();
         } else {
             caseTop();
+            buttonWell();
         }
         hatStack();
         lcdCutout();
@@ -94,7 +95,7 @@ module hatStack() {
     translate([-boardWidth/2, -boardLength/2, 0]) {
         translate([0, 0, 0])
             linear_extrude(0, 0, piThickness + connectorHeight + boardThickness)
-                roundedRect(w = boardWidth + pt, h = boardLength + pt, r = boardRadius, center = false);
+                roundedRect(w = boardWidth + pt, h = boardLength + pt, r = boardRadius/2, center = false);
         
         translate([boardWidth - headerWidth, boardLength - headerLength - headerLengthOffset, -headerStickout])
             linear_extrude(0, 0, piThickness + connectorHeight + boardThickness + 2*headerStickout)
@@ -111,7 +112,7 @@ module lcdCutout() {
 
 module sdCutout() {
     translate([boardWidth/2-sdOffset-sdWidth, boardLength/2-sdStickout, 0])
-        linear_extrude(0, 0, 3*piThickness)
+        linear_extrude(0, 0, 4*piThickness)
             square([sdWidth, 2*sdStickout], center = false);
 }
 
@@ -134,12 +135,19 @@ module supportPosts() {
     }
 }
 
+module buttonWell() {
+    translate([-boardWidth/2, -boardLength/2, piThickness + connectorHeight + boardThickness + caseThickness])
+        translate([-caseThickness, -caseThickness, 0])
+            linear_extrude(0, 0, buttonHeight)
+                roundedRect(w = boardWidth + 2*caseThickness, h = buttonPlateWidth + 2*caseThickness + 2*buttonPlateOffsetY, r = buttonPlateWidth/2, center = false);
+}
+
 module buttonHoles() {
     translate([-boardWidth/2, -boardLength/2, piThickness + connectorHeight + boardThickness]) {
         translate([buttonPlateOffsetX, buttonPlateOffsetY, -buttonPlay])
-            linear_extrude(0, 0, buttonPlateInset + buttonPlay)
+            linear_extrude(0, 0, buttonPlateInset + buttonPlay + buttonHeight)
                 roundedRect(w = buttonPlateLength + 2*pt, h = buttonPlateWidth + 2*pt, r = buttonPlateWidth/2, center = false);
-        linear_extrude(0, 0, buttonHeight + buttonPlateInset) {
+        linear_extrude(0, 0, buttonHeight + buttonPlateInset + caseThickness) {
             translate([0, buttonOffset, 0]) {
                 translate([9.5, 0, 0])
                     circle(r = buttonRadius + buttonPlay + pt);
@@ -156,7 +164,7 @@ module buttonHoles() {
 
 module buttonPlate() {
     linear_extrude(0, 0, buttonPlateThickness)
-        roundedRect(w = buttonPlateLength, h = buttonPlateWidth, r = buttonPlateWidth/2);
+        roundedRect(w = buttonPlateLength - 2*pt, h = buttonPlateWidth - 2*pt, r = buttonPlateWidth/2-pt);
     translate([-buttonPlateLength/2 - buttonPlateOffsetX, 0, 0]) {
         linear_extrude(0, 0, buttonHeight + buttonPlateThickness) {
             translate([9.5, 0, 0])
