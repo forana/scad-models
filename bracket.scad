@@ -16,16 +16,24 @@ scale([$inch, $inch, $inch]) difference() {
 }
 
 module bracket() {
-    linear_extrude(0, 0, width) difference() {
-        polygon([
-            [0, 0],
-            [length, 0],
-            [0, length]
-        ]);
-        translate([length/2, length/2]) circle(r = length/2 - thickness);
-        translate([length/2, thickness]) square(length);
-        translate([thickness, length/2]) square(length);
-    };
+    linear_extrude(0, 0, width) union() {
+        difference() {
+            polygon([
+                [0, 0],
+                [length, 0],
+                [0, length]
+            ]);
+            translate([length/2, length/2]) circle(r = length/2 - thickness);
+            translate([length/2, thickness]) square(length);
+            translate([thickness, length/2]) square(length);
+        };
+//        polygon([
+//            [0, length],
+//            [0, length - thickness],
+//            [length - thickness, 0],
+//            [length, 0]
+//        ]);
+    }
 }
 
 module screw_shafts() {
