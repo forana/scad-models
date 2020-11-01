@@ -1,0 +1,1 @@
+Do you need to get water into a place that's precise and far away? I did! So I made this. The funnel fits into the wide end of the tapered tube, and the thin end of one tube will also fit into the wide end of another.
